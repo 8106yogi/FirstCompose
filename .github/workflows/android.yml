@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4.1.1
       - run: echo "The ${{ github.repository }} repository has been cloned."
       - run: echo "Setting up JDK"
-      - name: set up JDK 11
+      - name: set up JDK 17
         uses: actions/setup-java@v4.0.0
         with:
           java-version: '17'
@@ -28,4 +28,10 @@ jobs:
       - run: echo "Building Debug APK."
       - name: Build with Gradle
         run: ./gradlew build
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4.3.1
+        with: 
+          name: AndroidCICD-debug.apk
+          path: app/build/output/apk/debug/app-debug.apk
+        
       - run: echo "Build status report=${{ job.status }}."
